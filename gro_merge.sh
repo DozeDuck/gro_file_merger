@@ -37,3 +37,15 @@ rm last
 rm test.gro
 
 
+echo "; Include ligand topology
+#include "lig_GMX.itp"
+#ifdef POSRES_LIG
+#include "posre_lig.itp"
+#endif
+
+" >  include.dat
+
+sed -i '$a lig\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1' topol.top 
+sed -i '22r include.dat'     topol.top
+rm include.dat
+
