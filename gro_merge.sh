@@ -2,7 +2,7 @@
 # Usage: ./gro_merge.sh rec.gro lig_GMX.gro
 
 ###
-### gro_merge.sh - dose one thing well
+### gro_merge.sh - merge rec.gro and lig_GMX.gro, also edit topol.top as well
 ###
 ### Usage:
 ###       gro_merge.sh <receptor.gro>  <ligand_GMX.gro>
@@ -21,7 +21,7 @@ if [[ $# == 0 ]]  || [[ "$1" == "-h" ]]; then
 	exit 1
 fi
 
-
+# This part is for merge two gro files
 more  $2 | sed -n '3,$p' > test.gro && sed -i '' test.gro 
 # a=`sed -n 2p rec.gro`
 a=`sed -n 2p $1`
@@ -36,11 +36,11 @@ more last >> complex.gro
 rm last 
 rm test.gro
 
-
+# Below is the part for editing topol.top
 echo "; Include ligand topology
-#include "lig_GMX.itp"
+#include \"lig_GMX.itp\"
 #ifdef POSRES_LIG
-#include "posre_lig.itp"
+#include \"posre_lig.itp\"
 #endif
 
 " >  include.dat
