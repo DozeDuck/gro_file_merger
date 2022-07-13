@@ -23,7 +23,7 @@ if [[ $# == 0 ]]  || [[ "$1" == "-h" ]]; then
 fi
 
 # This part is for merge two gro files
-more  $2 | sed -n '3,$p' > test.gro && sed -i '' test.gro 
+more  $2 | sed -n '3,$p' > test.gro && sed -i '$d' test.gro 
 # a=`sed -n 2p rec.gro`
 a=`sed -n 2p $1`
 b=`sed -n 2p $2 `
@@ -41,7 +41,7 @@ rm test.gro
 # Below is the part for editing topol.top
 echo "; Include ligand topology" >> include.dat
 # echo "#include \"lig_GMX.itp\"" >> include.dat
-echo "#include $3" >> include.dat
+echo "#include \"$3\"" >> include.dat
 echo "#ifdef POSRES_LIG" >> include.dat
 echo "#include \"posre_lig.itp\"" >> include.dat
 echo "#endif
